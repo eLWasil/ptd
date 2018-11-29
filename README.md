@@ -1,1 +1,1 @@
-# Podstawy transmisji danych - Łukasz Wasilewski
+# Podstawy transmisji danych
