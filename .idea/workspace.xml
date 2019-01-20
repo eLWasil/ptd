@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a90cd165-a5f8-4ec2-8e0b-4f7a66172b73" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/FileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/MdkVector.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/XVector.txt" beforeDir="false" afterPath="$PROJECT_DIR$/XVector.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Lab1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lab1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MdkVector.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fkVec.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fkVec.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mdkVec.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mdkVec.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mkVec.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mkVec.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nVector.txt" beforeDir="false" afterPath="$PROJECT_DIR$/nVector.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Lab2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Lab2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VecCommons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VecCommons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Lab2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Lab2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainClass.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainClass.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainClass.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="49" column="54" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
+            <state relative-caret-position="459">
+              <caret line="27" column="55" selection-start-line="27" selection-start-column="55" selection-end-line="27" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -41,11 +42,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FFT.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/FFT.java">
+      <file leaf-file-name="Lab2.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Lab2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="2482">
+              <caret line="168" column="39" selection-start-line="168" selection-start-column="39" selection-end-line="168" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#5123#5124#0" expanded="true" />
+                <element signature="e#5164#5165#0" expanded="true" />
+                <element signature="e#5195#5196#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FileManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/FileManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="-68">
+              <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -99,14 +106,16 @@
       <file leaf-file-name="Lab1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lab1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="1739">
+              <caret line="148" column="16" selection-start-line="148" selection-start-column="16" selection-end-line="148" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#890#891#0" expanded="true" />
                 <element signature="e#923#924#0" expanded="true" />
                 <element signature="e#3916#3917#0" expanded="true" />
                 <element signature="e#3963#3964#0" expanded="true" />
+                <element signature="e#4221#4222#0" expanded="true" />
+                <element signature="e#4251#4252#0" expanded="true" />
                 <element signature="e#4283#4284#0" expanded="true" />
                 <element signature="e#4313#4314#0" expanded="true" />
                 <element signature="e#4531#4532#0" expanded="true" />
@@ -172,10 +181,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Timer.java" />
         <option value="$PROJECT_DIR$/src/main/java/FFT.java" />
         <option value="$PROJECT_DIR$/src/main/java/VecCommons.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Lab2.java" />
         <option value="$PROJECT_DIR$/src/main/java/Lab1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/FileManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/MainClass.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Lab2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/FileManager.java" />
       </list>
     </option>
   </component>
@@ -442,7 +451,7 @@
       <workItem from="1546776008473" duration="9673000" />
       <workItem from="1546796129988" duration="834000" />
       <workItem from="1547127456549" duration="3025000" />
-      <workItem from="1547996443263" duration="23878000" />
+      <workItem from="1547996443263" duration="25013000" />
     </task>
     <servers />
   </component>
@@ -464,7 +473,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76908000" />
+    <option name="totallyTimeSpent" value="78043000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -524,6 +533,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -581,6 +592,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -648,6 +661,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -688,6 +703,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -728,6 +745,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -758,6 +777,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -788,6 +809,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -818,22 +841,9 @@
           <caret line="20" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3393#3394#0" expanded="true" />
-            <element signature="e#3437#3438#0" expanded="true" />
-            <element signature="e#3488#3489#0" expanded="true" />
-            <element signature="e#3557#3558#0" expanded="true" />
-            <element signature="e#4601#4602#0" expanded="true" />
-            <element signature="e#4635#4636#0" expanded="true" />
-            <element signature="e#4680#4681#0" expanded="true" />
-            <element signature="e#4715#4716#0" expanded="true" />
-            <element signature="e#4759#4760#0" expanded="true" />
-            <element signature="e#4793#4794#0" expanded="true" />
-            <element signature="e#4837#4838#0" expanded="true" />
-            <element signature="e#4871#4872#0" expanded="true" />
-            <element signature="e#4916#4917#0" expanded="true" />
-            <element signature="e#4951#4952#0" expanded="true" />
-            <element signature="e#4995#4996#0" expanded="true" />
-            <element signature="e#5029#5030#0" expanded="true" />
+            <element signature="e#5123#5124#0" expanded="true" />
+            <element signature="e#5164#5165#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -869,6 +879,8 @@
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -921,17 +933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/FrameManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#190#191#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1015,42 +1016,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Lab2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="118" column="22" selection-start-line="118" selection-start-column="22" selection-end-line="118" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3393#3394#0" expanded="true" />
-            <element signature="e#3437#3438#0" expanded="true" />
-            <element signature="e#3488#3489#0" expanded="true" />
-            <element signature="e#3557#3558#0" expanded="true" />
-            <element signature="e#4601#4602#0" expanded="true" />
-            <element signature="e#4635#4636#0" expanded="true" />
-            <element signature="e#4680#4681#0" expanded="true" />
-            <element signature="e#4715#4716#0" expanded="true" />
-            <element signature="e#4759#4760#0" expanded="true" />
-            <element signature="e#4793#4794#0" expanded="true" />
-            <element signature="e#4837#4838#0" expanded="true" />
-            <element signature="e#4871#4872#0" expanded="true" />
-            <element signature="e#4916#4917#0" expanded="true" />
-            <element signature="e#4951#4952#0" expanded="true" />
-            <element signature="e#4995#4996#0" expanded="true" />
-            <element signature="e#5029#5030#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lab1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        <state relative-caret-position="1739">
+          <caret line="148" column="16" selection-start-line="148" selection-start-column="16" selection-end-line="148" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#890#891#0" expanded="true" />
             <element signature="e#923#924#0" expanded="true" />
             <element signature="e#3916#3917#0" expanded="true" />
             <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4221#4222#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
             <element signature="e#4283#4284#0" expanded="true" />
             <element signature="e#4313#4314#0" expanded="true" />
             <element signature="e#4531#4532#0" expanded="true" />
@@ -1061,20 +1038,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/FileManager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/FrameManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#190#191#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MainClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="49" column="54" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
+        <state relative-caret-position="459">
+          <caret line="27" column="55" selection-start-line="27" selection-start-column="55" selection-end-line="27" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Lab2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2482">
+          <caret line="168" column="39" selection-start-line="168" selection-start-column="39" selection-end-line="168" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5123#5124#0" expanded="true" />
+            <element signature="e#5164#5165#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/FileManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

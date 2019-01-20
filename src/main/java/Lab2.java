@@ -65,6 +65,9 @@ public class Lab2 extends VecCommons implements MathHelper {
             vectorIm.add(complexX[i].im());
         }
         System.out.println("5. FFT Elapsed time: " + timer + " ms.");
+
+        FileManager.saveVectorToFile(vectorRe, "vectorReFFT", "Vre");
+        FileManager.saveVectorToFile(vectorIm, "vectorImF   xFT", "Vim");
     }
 
     public void calculateDFT() {
@@ -83,6 +86,9 @@ public class Lab2 extends VecCommons implements MathHelper {
             }
         }
         System.out.println("3. DFT after Elapsed time : " + timer + " ms.");
+
+        FileManager.saveVectorToFile(vectorRe, "vectorReDFT", "Vre");
+        FileManager.saveVectorToFile(vectorIm, "vectorImDFT", "Vim");
 //        calculateAlphaZVectors();
     }
 
@@ -164,5 +170,13 @@ public class Lab2 extends VecCommons implements MathHelper {
 
     public List<Double> getVectorFkFFT() {
         return vectorFkFFT;
+    }
+
+    public List<Double> getVectorRe() {
+        return vectorRe;
+    }
+
+    public List<Double> getVectorIm() {
+        return vectorIm;
     }
 }

@@ -20,7 +20,7 @@ public class MainClass {
         List gbVector = think.getVectorGb();
         List gcVector = think.getVectorGc();
 
-        GridLayout layout = new GridLayout(2, 2);
+        GridLayout layout = new GridLayout(1, 2);
         frameManager.setLayout(layout);
 
         frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 1", "N", nVector, "Xs", xVector));
@@ -49,12 +49,10 @@ public class MainClass {
         FileManager.saveVectorToFile(xVector, "xVector");
         FileManager.saveVectorToFile(nVector, "nVector");
 
-
-//        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName + " Mk", "f(k)", fkVec, "mk", mkVec));
-//        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName + " M'k", "f(k)", fkVec, "mdk", mdkVec));
-//
-//        frameManager.add(chartManager.makeXYLineChart("Lab 2 FFT, " + vecName + " Mk", "f(k)", fkVec2, "mk", mkVec2));
-//        frameManager.add(chartManager.makeXYLineChart("Lab 2 FFT, " + vecName + " M'k", "f(k)", fkVec2, "mdk", mdkVec2));
+        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName, "f(k)", fkVec, "M(k)", mkVec));
+        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName, "f(k)", fkVec, "M'(k)", mdkVec));
+        frameManager.add(chartManager.makeXYLineChart("Lab 2 FFT, " + vecName, "f(k)", fkVec2, "M(k)", mkVec2));
+        frameManager.add(chartManager.makeXYLineChart("Lab 2 FFT, " + vecName, "f(k)", fkVec2, "M'(k)", mdkVec2));
 
 //        vecName = "uVector";
 //        lab2.reCalculate(uVector);
@@ -64,8 +62,7 @@ public class MainClass {
 //        frameManager.add(chartManager.makeXYLineChart("Lab 2, " + vecName + " Mk", "f(k)", fkVec, "mkVec", mkVec));
 //        frameManager.add(chartManager.makeXYLineChart("Lab 2, " + vecName + " M'k", "f(k)", fkVec, "mdkVec", mdkVec));
 
-
-        //        Lab4 lab4 = new Lab4();
+//        Lab4 lab4 = new Lab4();
 //        List hzVec = lab4.buildHzVec(lab4.vectorZA, 6);
 
 //        frameManager.add(chartManager.makeXYLineChart("Lab 4. ASK", "xTitle", lab4.vectorN, "yTitle", lab4.vectorZA));
