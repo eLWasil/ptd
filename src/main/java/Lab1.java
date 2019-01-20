@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,24 +64,9 @@ public class Lab1 extends VecCommons implements MathHelper {
     }
 
     private void calculateXn() {
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter("XVector.txt");
-            out.println("Fs = " + getFs());
-
-            for (int n = 0; n < nMax; n++) {
-                double result = 0.7 * Math.sin(2 * Math.PI * F * (n / Fn) + PHI) * n;
-                vectorX.add(result);
-                out.println(result);
-            }
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("Cannot save to file.");
-        }
-        finally {
-            if (out != null) {
-                out.close();
-            }
+        for (int n = 0; n < nMax; n++) {
+            double result = 0.7 * Math.sin(2 * Math.PI * F * (n / Fn) + PHI) * n;
+            vectorX.add(result);
         }
     }
 

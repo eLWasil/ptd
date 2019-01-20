@@ -4,6 +4,7 @@ import java.util.List;
 public class MainClass {
 
     public static void main(String[] args) {
+        FileManager fileManager = new FileManager();
         FrameManager frameManager = new FrameManager("Okienko");
         ChartManager chartManager = new ChartManager();
 
@@ -41,6 +42,13 @@ public class MainClass {
         List<Double> mkVec2 = lab2.getVectorMkFFT();
         List<Double> mdkVec2 = lab2.getVectorMdkFFT();
         List<Double> fkVec2 = lab2.getVectorFkFFT();
+
+        FileManager.saveVectorToFile(mkVec, "mkVec");
+        FileManager.saveVectorToFile(mdkVec, "mdkVec");
+        FileManager.saveVectorToFile(fkVec, "fkVec");
+        FileManager.saveVectorToFile(xVector, "xVector");
+        FileManager.saveVectorToFile(nVector, "nVector");
+
 
 //        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName + " Mk", "f(k)", fkVec, "mk", mkVec));
 //        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName + " M'k", "f(k)", fkVec, "mdk", mdkVec));

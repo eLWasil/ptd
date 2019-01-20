@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,29 +111,12 @@ public class Lab2 extends VecCommons implements MathHelper {
 
     public List<Double> calculateDerivativeMk(List<Double> mkVec) {
         List<Double> vector = new ArrayList<>();
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter("XVector.txt");
-            out.println("Fs = " + Lab1.Fn);
-
-
-            for (int k = 0; k < nMax / 2; k++) {
-                double result = 10 * log(mkVec.get(k), 10);
-                result = (Double.isInfinite(result) ? 0 : result);
-                vector.add(result);
-                out.println(result);
-            }
-
+        for (int k = 0; k < nMax / 2; k++) {
+            double result = 10 * log(mkVec.get(k), 10);
+            result = (Double.isInfinite(result) ? 0 : result);
+            vector.add(result);
         }
-        catch (FileNotFoundException e) {
-            System.out.println("Cannot save to file.");
-        }
-        finally {
-            if (out != null) {
-                out.close();
-            }
-            return vector;
-        }
+        return vector;
     }
 
     public List<Double> calculateFk() {

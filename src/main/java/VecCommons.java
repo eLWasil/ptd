@@ -78,4 +78,5 @@ public abstract class VecCommons {
         builder.append("\n]");
         return builder.toString();
     }
+
 }
