@@ -1,48 +1,67 @@
-import org.jfree.chart.ChartPanel;
-import org.jfree.ui.RefineryUtilities;
-
+import java.awt.*;
 import java.util.List;
 
 public class MainClass {
 
     public static void main(String[] args) {
-
         FrameManager frameManager = new FrameManager("Okienko");
         ChartManager chartManager = new ChartManager();
 
-        Lab1 think = new Lab1(200);
+        Lab1 think = new Lab1(128);
         List nVector = think.getVectorN();
         List xVector = think.getVectorX();
         List zVector = think.getVectorZ();
-        List vVector = think.getVectorV();
-        List uVector = think.getVectorU();
+        List vVector = think.getVectorV(); // ok
+        List uVector = think.getVectorU(); // ok
 
         List gTimeVec = think.getVectorGTime();
         List gaVector = think.getVectorGa();
         List gbVector = think.getVectorGb();
         List gcVector = think.getVectorGc();
 
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 1", "N", nVector, "Xs", xVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 2a", "N", nVector, "Xs", zVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 2b", "N", nVector, "Xs", vVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 3", "N", nVector, "Xs", uVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 4a", "N", gTimeVec, "Xs", gaVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 4b", "N", gTimeVec, "Xs", gbVector);
-        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 4c", "N", gTimeVec, "Xs", gcVector);
+        GridLayout layout = new GridLayout(2, 2);
+        frameManager.setLayout(layout);
 
-        Lab2 lab2 = new Lab2(xVector);
-        List alphaVec = lab2.getVectorAlphan();
-        List zVec = lab2.getVectorZn();
-        List mkVec = lab2.getVectorMk();
-        List deriMkVec = lab2.getVectorDeriMk();
+        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 1", "N", nVector, "Xs", xVector));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 2a", "N", nVector, "Xs", zVector));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 2b", "N", nVector, "Xs", vVector));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 3", "N", n2Vector, "Xs", uVector));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 4a", "N", gTimeVec, "Xs", gaVector));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 4b", "N", gTimeVec, "Xs", gbVector));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 1, zadanie 4c", "N", gTimeVec, "Xs", gcVector));
 
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 2, zadanie 1", "N", zVec, "Xs", alphaVec);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 4c", "N", gTimeVec, "Xs", gcVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 4c", "N", gTimeVec, "Xs", gcVector);
-//        ChartPanel chartPanel = chartManager.makeXYLineChart("Lab 1, zadanie 4c", "N", gTimeVec, "Xs", gcVector);
+        Lab2 lab2 = new Lab2();
 
-        frameManager.add(chartPanel);
-        frameManager.add(chartPanel);
+        lab2.reCalculate(xVector);
+        String vecName = "xVector";
+        List<Double> mkVec = lab2.getVectorMkDFT();
+        List<Double> mdkVec = lab2.getVectorMdkDFT();
+        List<Double> fkVec = lab2.getVectorFkDFT();
+
+        List<Double> mkVec2 = lab2.getVectorMkFFT();
+        List<Double> mdkVec2 = lab2.getVectorMdkFFT();
+        List<Double> fkVec2 = lab2.getVectorFkFFT();
+
+//        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName + " Mk", "f(k)", fkVec, "mk", mkVec));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 2 DFT, " + vecName + " M'k", "f(k)", fkVec, "mdk", mdkVec));
+//
+//        frameManager.add(chartManager.makeXYLineChart("Lab 2 FFT, " + vecName + " Mk", "f(k)", fkVec2, "mk", mkVec2));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 2 FFT, " + vecName + " M'k", "f(k)", fkVec2, "mdk", mdkVec2));
+
+//        vecName = "uVector";
+//        lab2.reCalculate(uVector);
+//        mkVec = lab2.getVectorMk();
+//        mdkVec = lab2.getVectorMdk();
+//        fkVec = lab2.getVectorFk();
+//        frameManager.add(chartManager.makeXYLineChart("Lab 2, " + vecName + " Mk", "f(k)", fkVec, "mkVec", mkVec));
+//        frameManager.add(chartManager.makeXYLineChart("Lab 2, " + vecName + " M'k", "f(k)", fkVec, "mdkVec", mdkVec));
+
+
+        //        Lab4 lab4 = new Lab4();
+//        List hzVec = lab4.buildHzVec(lab4.vectorZA, 6);
+
+//        frameManager.add(chartManager.makeXYLineChart("Lab 4. ASK", "xTitle", lab4.vectorN, "yTitle", lab4.vectorZA));
+
         frameManager.build();
 
     }

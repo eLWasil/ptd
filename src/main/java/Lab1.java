@@ -1,14 +1,17 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lab1 extends VecCommons implements MathHelper {
 
+    static final double Fn = 100; // Hz
     private final double F = 4; // Hz
     private final double PHI = (7 * Math.PI) / 9;
-    private final double Fn = 100; // Hz
     private final double T = 1; // s
-    private double nMax = 0;
+    private double nMax = 128;
 
+    public List moduloTest = new ArrayList();
     private List vectorN = new ArrayList();
     private List vectorX = new ArrayList();
     private List vectorY = new ArrayList();
@@ -19,6 +22,10 @@ public class Lab1 extends VecCommons implements MathHelper {
     private List vectorGb = new ArrayList();
     private List vectorGc = new ArrayList();
     private List vectorGTime = new ArrayList();
+
+    public final double getFs() {
+        return Fn;
+    }
 
     public Lab1(int nMax) {
         reCalculate(nMax);
@@ -46,49 +53,63 @@ public class Lab1 extends VecCommons implements MathHelper {
         calculateYn();
         calculateZn();
         calculateVn();
-        calculateUn(3, convHzToSeconds(1.2 * 1000));
-        calculateGTime(4, convHzToSeconds(10000));
-    }
+        calculateUn(1, convHzToSeconds(1024));
+        calculateGTime(1, convHzToSeconds(1024));
 
-    public void clear() {
+        moduloTest = makeStronger(vectorX, 2);
     }
 
     public void fillNVec() {
-        for (int i = 0; i <= nMax; i++) {
+        for (int i = 0; i < nMax; i++) {
             vectorN.add(i);
         }
     }
 
     private void calculateXn() {
-        for (int n = 0; n <= nMax; n++) {
-            double result = 0.7 * Math.sin(2 * Math.PI * F * (n / Fn) + PHI) * n;
-            vectorX.add(result);
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter("XVector.txt");
+            out.println("Fs = " + getFs());
+
+            for (int n = 0; n < nMax; n++) {
+                double result = 0.7 * Math.sin(2 * Math.PI * F * (n / Fn) + PHI) * n;
+                vectorX.add(result);
+                out.println(result);
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Cannot save to file.");
+        }
+        finally {
+            if (out != null) {
+                out.close();
+            }
         }
     }
 
     private void calculateYn() {
-        for (int n = 0; n <= nMax; n++) {
+        for (int n = 0; n < nMax; n++) {
             double result = (getX(n) + 1) / (getX(n) + 10);
             vectorY.add(result);
         }
     }
 
     private void calculateZn() {
-        for (int n = 0; n <= nMax; n++) {
+        for (int n = 0; n < nMax; n++) {
             double result = getY(n) * Math.pow(Math.abs(n), 0.333);
             vectorZ.add(result);
         }
     }
 
     private void calculateVn() {
-        for (int n = 0; n <= nMax; n++) {
+        for (int n = 0; n < nMax; n++) {
             double result = 3 * getX(n) + (getY(n) * (Math.abs(getX(n)) + 1.78));
             vectorV.add(result);
         }
     }
 
     private void calculateUn(int time, double interval) {
-        for (double n = 0; n <= time; n += interval) {
+        for (double n = 0; n < time; n += interval) {
             double result = unTimeCases(n);
             vectorU.add(result);
         }
@@ -109,7 +130,7 @@ public class Lab1 extends VecCommons implements MathHelper {
     }
 
     private void calculateGTime(int time, double interval) {
-        for (double n = 0; n <= time; n += interval) {
+        for (double n = 0; n < time; n += interval) {
             double pre = (9 / Math.pow(Math.PI, 2));
             vectorGTime.add(n);
             vectorGa.add(pre * sigma(2, n));
@@ -136,6 +157,10 @@ public class Lab1 extends VecCommons implements MathHelper {
 
     public double getZ(int index) {
         return checkVec(index, vectorZ);
+    }
+
+    public double getnMax() {
+        return nMax;
     }
 
     public List getVectorN() {

@@ -1,14 +1,12 @@
-import org.jfree.chart.*;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CombinedDomainXYPlot;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 
 import java.awt.*;
 import java.util.List;
@@ -44,10 +42,18 @@ public class ChartManager {
     private XYDataset createXYDataset(List xVector, List yVector) {
         final XYSeries xySeries = new XYSeries( "Test" );
         for (int i = 0; i < xVector.size() && i < yVector.size(); i++) {
-            try {
-                xySeries.add((double)xVector.get(i), (double)yVector.get(i));
-            } catch (ClassCastException e) {
-                xySeries.add((int)xVector.get(i), (double)yVector.get(i));
+            if (xVector.get(0) instanceof Integer) {
+                if (yVector.get(0) instanceof Integer) {
+                    xySeries.add((int)xVector.get(i), (int)yVector.get(i));
+                } else if (yVector.get(0) instanceof Double) {
+                    xySeries.add((int)xVector.get(i), (double)yVector.get(i));
+                }
+            } else if (xVector.get(0) instanceof Double) {
+                if (yVector.get(0) instanceof Integer) {
+                    xySeries.add((double)xVector.get(i), (int)yVector.get(i));
+                } else if (yVector.get(0) instanceof Double) {
+                    xySeries.add((double)xVector.get(i), (double)yVector.get(i));
+                }
             }
         }
         final XYSeriesCollection dataset = new XYSeriesCollection();

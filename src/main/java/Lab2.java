@@ -1,26 +1,27 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lab2 extends VecCommons implements MathHelper {
 
-    private List vectorX;
+    private List<Double> vectorX        = new ArrayList<>();
 
-    private List vectorRe = new ArrayList();
-    private List vectorIm = new ArrayList();
-    private List vectorZn = new ArrayList();
-    private List vectorAlphan = new ArrayList();
-    private List vectorMk = new ArrayList();
-    private List vectorDeriMk = new ArrayList();
+    private List<Double> vectorRe       = new ArrayList();
+    private List<Double> vectorIm       = new ArrayList();
+
+    private List<Double> vectorMkDFT    = new ArrayList();
+    private List<Double> vectorMdkDFT   = new ArrayList();
+    private List<Double> vectorFkDFT    = new ArrayList();
+
+    private List<Double> vectorMkFFT    = new ArrayList();
+    private List<Double> vectorMdkFFT   = new ArrayList();
+    private List<Double> vectorFkFFT    = new ArrayList();
 
     private int nMax = 4;
 
-    public Lab2(List vectorX) {
-        this.vectorX = vectorX;
-        reCalculate(vectorX.size());
-    }
-
     public void reCalculate(List vector) {
-        vectorX = vector;
+        this.vectorX = vector;
         reCalculate(vector.size());
     }
 
@@ -29,69 +30,121 @@ public class Lab2 extends VecCommons implements MathHelper {
         clear(
                 vectorRe,
                 vectorIm,
-                vectorMk,
-                vectorDeriMk
+                vectorMkDFT,
+                vectorMdkDFT,
+                vectorFkDFT,
+                vectorMkFFT,
+                vectorMdkFFT,
+                vectorFkFFT
         );
 
         nMax = nNewMax;
 
         calculateDFT();
-        calculateMk();
-        calculateDerivativeMk();
+        vectorMkDFT = calculateMk();
+        vectorMdkDFT = calculateDerivativeMk(vectorMkDFT);
+        vectorFkDFT = calculateFk();
+
+        calculateFFT();
+        vectorMkFFT = calculateMk();
+        vectorMdkFFT = calculateDerivativeMk(vectorMkFFT);
+        vectorFkFFT = calculateFk();
+    }
+
+    void calculateFFT() {
+        System.out.println("4. FFT in");
+        Timer timer = new Timer();
+        Complex[] complexX = new Complex[vectorX.size()];
+        for (int i = 0; i < vectorX.size(); i++) {
+            complexX[i] = new Complex(vectorX.get(i), 0);
+        }
+        Complex[] reimArray = FFT.fft(complexX);
+
+        vectorRe.clear();
+        vectorIm.clear();
+        for (int i = 0; i < reimArray.length; i++) {
+            vectorRe.add(complexX[i].re());
+            vectorIm.add(complexX[i].im());
+        }
+        System.out.println("5. FFT Elapsed time: " + timer + " ms.");
     }
 
     public void calculateDFT() {
+        Timer timer = new Timer();
+        System.out.println("2. DFT in");
         for (int k = 0; k < nMax; k++) {
-            calculateReImVectors(k);
+            for (int n = 0; n < nMax && n < vectorX.size(); n++) {
+                double xn = (double) vectorX.get(n);
+                double cosX = Math.cos(-1 * 2 * Math.PI * n * k / nMax);
+                double sinX = Math.cos(-1 * 2 * Math.PI * n * k / nMax);
+
+                double Re = xn * cosX;
+                double Im = xn * sinX;
+                vectorRe.add(Re);
+                vectorIm.add(Im);
+            }
         }
-        calculateAlphaZVectors();
+        System.out.println("3. DFT after Elapsed time : " + timer + " ms.");
+//        calculateAlphaZVectors();
     }
 
-    private void calculateReImVectors(int k) {
-        for (int n = 0; n < nMax && n < vectorX.size(); n++) {
-            double phi = calcPhi(n, k);
-            double xn = (double) vectorX.get(n);
+//    private void calculateAlphaZVectors() {
+//        for (int n = 0; n < vectorRe.size() && n < vectorIm.size(); n++) {
+//            double zResult = getZ((double)vectorRe.get(n), (double)vectorIm.get(n));
+//            vectorZn.add(zResult);
+//            double alphaResult = getAlpha((double)vectorRe.get(n), (double)vectorIm.get(n));
+//            vectorAlphan.add(alphaResult);
+//        }
+//    }
 
-            double Re = getRe(phi) * xn;
-            double Im = getIm(phi) * xn / 2;
-            vectorRe.add(Re);
-            vectorIm.add(Im);
-        }
-    }
-
-    private void calculateAlphaZVectors() {
-        for (int n = 0; n < vectorRe.size() && n < vectorIm.size(); n++) {
-            vectorZn.add(getZ((double)vectorRe.get(n), (double)vectorIm.get(n)));
-            vectorAlphan.add(getAlpha((double)vectorRe.get(n), (double)vectorIm.get(n)));
-        }
-    }
-
-    public void calculateMk() {
+    private List<Double> calculateMk() {
+        List<Double> vector = new ArrayList<>();
         for (int k = 0; k < nMax / 2; k++) {
-            double result = Math.sqrt(Math.pow(getRe(getX(k)), 2) + Math.pow(getIm(getX(k)), 2));
-            vectorMk.add(result);
+            double re = vectorRe.get(k);
+            double im = vectorIm.get(k);
+            double re2 = re * re;
+            double im2 = im * im;
+            double sum = re2 + im2;
+            double result = Math.sqrt(sum);
+            vector.add(result);
+        }
+        return vector;
+    }
+
+    public List<Double> calculateDerivativeMk(List<Double> mkVec) {
+        List<Double> vector = new ArrayList<>();
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter("XVector.txt");
+            out.println("Fs = " + Lab1.Fn);
+
+
+            for (int k = 0; k < nMax / 2; k++) {
+                double result = 10 * log(mkVec.get(k), 10);
+                result = (Double.isInfinite(result) ? 0 : result);
+                vector.add(result);
+                out.println(result);
+            }
+
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Cannot save to file.");
+        }
+        finally {
+            if (out != null) {
+                out.close();
+            }
+            return vector;
         }
     }
 
-    public void calculateDerivativeMk() {
+    public List<Double> calculateFk() {
+        List<Double> vector = new ArrayList<>();
         for (int k = 0; k < nMax / 2; k++) {
-            double result = 10 * log(getMk(k), 10);
-            vectorDeriMk.add(result);
+            double result = (k * Lab1.Fn) / nMax;
+            vector.add(result);
         }
-    }
-
-    private double calcPhi(int n, int k) {
-        int kn = k * n;
-        return (kn / nMax) * 2 * Math.PI;
-    }
-
-
-    private double getRe(double phi) {
-        return Math.cos(phi);
-    }
-
-    private double getIm(double phi) {
-        return Math.sin(phi);
+        return vector;
     }
 
     private double getX(int k) {
@@ -108,23 +161,27 @@ public class Lab2 extends VecCommons implements MathHelper {
         return alpha;
     }
 
-    private double getMk(int k) {
-        return checkVec(k, vectorMk);
+    public List<Double> getVectorMkDFT() {
+        return vectorMkDFT;
     }
 
-    public List getVectorZn() {
-        return vectorZn;
+    public List<Double> getVectorMdkDFT() {
+        return vectorMdkDFT;
     }
 
-    public List getVectorAlphan() {
-        return vectorAlphan;
+    public List<Double> getVectorFkDFT() {
+        return vectorFkDFT;
     }
 
-    public List getVectorMk() {
-        return vectorMk;
+    public List<Double> getVectorMkFFT() {
+        return vectorMkFFT;
     }
 
-    public List getVectorDeriMk() {
-        return vectorDeriMk;
+    public List<Double> getVectorMdkFFT() {
+        return vectorMdkFFT;
+    }
+
+    public List<Double> getVectorFkFFT() {
+        return vectorFkFFT;
     }
 }
