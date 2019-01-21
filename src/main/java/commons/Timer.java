@@ -5,7 +5,7 @@ public class Timer {
     private long begin;
     private long end;
 
-    Timer() {
+    public Timer() {
         reset();
     }
 

@@ -15,18 +15,35 @@ import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 
 public class ChartManager {
 
+    public static ChartManager getInstance() {
+        if (instance == null) {
+            instance = new ChartManager();
+        }
+        return instance;
+    }
+
+    private static ChartManager instance = null;
+
+    ChartManager() {
+        if (instance == null) {
+            instance = this;
+        }
+    }
+
     public static final boolean SHOW_LEGENDS = TRUE;
     public static final boolean SHOW_TOOLTIPS = TRUE;
 
+    private List<String> filenames = new ArrayList<>();
     private JFreeChart jFreeChart = null;
 
-    public ChartPanel makeXYLineChart(String title, String xTitle, List xVector, String yTitle, List yVector) {
+    public final ChartPanel makeXYLineChart(String title, String xTitle, List xVector, String yTitle, List yVector) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
@@ -44,13 +61,17 @@ public class ChartManager {
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
         renderer.setSeriesPaint(0, Color.RED);
-        renderer.setSeriesStroke(0 , new BasicStroke(2.0f));
+        renderer.setSeriesStroke(0 , new BasicStroke(1.0f));
         plot.setRenderer(renderer);
+
+
         return chartPanel;
     }
 
     private XYDataset createXYDataset(List xVector, List yVector) {
         final XYSeries xySeries = new XYSeries( "NeedToBeHere" );
+
+
         for (int i = 0; i < xVector.size() && i < yVector.size(); i++) {
             if (xVector.get(0) instanceof Integer) {
                 if (yVector.get(0) instanceof Integer) {
@@ -69,6 +90,14 @@ public class ChartManager {
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(xySeries);
 
+        final XYSeries min = new XYSeries( "Min" );
+        min.add( 0.0 , -10.0 );
+        final XYSeries max = new XYSeries( "Max" );
+        max.add( 0.0 , 10.0 );
+
+        dataset.addSeries(min);
+        dataset.addSeries(max);
+
         return dataset;
     }
 
@@ -82,19 +111,47 @@ public class ChartManager {
                     chartPanel.getWidth(),
                     chartPanel.getHeight()
             );
+            outputStream.close();
         } catch (IOException e) {
             System.out.println("IOException: " + fileName + " \n" + e.getMessage());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception: " + e.getMessage());
         }
-        finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (Exception e) {
-                }
-            }
+    }
+
+    public static void saveMultiple(final JFreeChart jFreeChart, List<ChartPanel> panels) {
+        if (instance == null) {
+            new ChartManager();
         }
+        List<String> filenames = instance.getFilenames();
+
+        System.out.println("save multiple before loop");
+
+        for (int i = 0; i < panels.size() && i < filenames.size(); i++) {
+            saveChart(filenames.get(i), panels.get(i), jFreeChart);
+            System.out.println("Saving " + filenames.get(i) + " - done.");
+        }
+
+        instance.getFilenames().clear();
+    }
+
+    public static void prepareFileNames(String ... files) {
+        if (instance == null) {
+            System.out.println("Its a singleton class");
+            return;
+        }
+
+        for (int i = 0; i < files.length; i++) {
+            instance.addFilename(files[i]);
+        }
+    }
+
+    public void addFilename(String filename) {
+        this.filenames.add(filename);
+    }
+
+    public List<String> getFilenames() {
+        return this.filenames;
     }
 
     public final JFreeChart getjFreeChart() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Lab4 extends VecCommons
 {
-    final int TB = 1000; // :/ na liczbe bitów = Tb = T / M
+    final int TB = 1000; // :/ na liczbe bitów = Tb = Time / M
 
     Lab1 lab1;
 

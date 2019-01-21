@@ -14,7 +14,7 @@ public class FileManager {
         PrintWriter out = null;
         try {
             out = new PrintWriter(fileName + ".txt");
-            out.println("Fs = " + Lab1.Fn);
+            out.println("Fs = 100");
 
             String line;
             for (int i = 0; i < vector.size(); i++) {

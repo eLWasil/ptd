@@ -1,5 +1,7 @@
 package services;
 
+import commons.Complex;
+
 /******************************************************************************
  *  Compilation:  javac services.FFT.java
  *  Execution:    java services.FFT n
