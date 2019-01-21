@@ -61,34 +61,39 @@ public class Lab2 extends VecCommons implements MathHelper {
         vectorRe.clear();
         vectorIm.clear();
         for (int i = 0; i < reimArray.length; i++) {
-            vectorRe.add(complexX[i].re());
-            vectorIm.add(complexX[i].im());
+            vectorRe.add(reimArray[i].re());
+            vectorIm.add(reimArray[i].im());
         }
         System.out.println("5. FFT Elapsed time: " + timer + " ms.");
 
         FileManager.saveVectorToFile(vectorRe, "vectorReFFT", "Vre");
-        FileManager.saveVectorToFile(vectorIm, "vectorImF   xFT", "Vim");
+        FileManager.saveVectorToFile(vectorIm, "vectorImFFT", "Vim");
     }
 
     public void calculateDFT() {
         Timer timer = new Timer();
         System.out.println("2. DFT in");
+        System.out.println(nMax);
         for (int k = 0; k < nMax; k++) {
+            double Re = 0;
+            double Im = 0;
+
             for (int n = 0; n < nMax && n < vectorX.size(); n++) {
                 double xn = (double) vectorX.get(n);
                 double cosX = Math.cos(-1 * 2 * Math.PI * n * k / nMax);
-                double sinX = Math.cos(-1 * 2 * Math.PI * n * k / nMax);
+                double sinX = Math.sin(-1 * 2 * Math.PI * n * k / nMax);
 
-                double Re = xn * cosX;
-                double Im = xn * sinX;
-                vectorRe.add(Re);
-                vectorIm.add(Im);
+                Re += xn * cosX;
+                Im += xn * sinX;
             }
+
+            vectorRe.add(Re);
+            vectorIm.add(Im);
         }
         System.out.println("3. DFT after Elapsed time : " + timer + " ms.");
 
         FileManager.saveVectorToFile(vectorRe, "vectorReDFT", "Vre");
-        FileManager.saveVectorToFile(vectorIm, "vectorImDFT", "Vim");
+        FileManager.saveVectorToFile(vectorIm, "vectorImDFT2", "Vim");
 //        calculateAlphaZVectors();
     }
 

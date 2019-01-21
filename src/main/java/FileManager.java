@@ -19,7 +19,6 @@ public class FileManager {
                 line = i + ". " + shortVecName + "[" + i + "] = " + vector.get(i);
                 out.println(line);
             }
-
         }
         catch (FileNotFoundException e) {
             System.out.println("Cannot save to file.");
