@@ -1,9 +1,11 @@
+package services;
+
 /******************************************************************************
- *  Compilation:  javac FFT.java
- *  Execution:    java FFT n
- *  Dependencies: Complex.java
+ *  Compilation:  javac services.FFT.java
+ *  Execution:    java services.FFT n
+ *  Dependencies: commons.Complex.java
  *
- *  Compute the FFT and inverse FFT of a length n complex sequence
+ *  Compute the services.FFT and inverse services.FFT of a length n complex sequence
  *  using the radix 2 Cooley-Tukey algorithm.
 
  *  Bare bones implementation that runs in O(n log n) time. Our goal
@@ -18,21 +20,21 @@
  *      it re-allocates memory for the subarray, instead of doing
  *      in-place or reusing a single temporary array)
  *  
- *  For an in-place radix 2 Cooley-Tukey FFT, see
+ *  For an in-place radix 2 Cooley-Tukey services.FFT, see
  *  https://introcs.cs.princeton.edu/java/97data/InplaceFFT.java.html
  *
  ******************************************************************************/
 
 public class FFT {
 
-    // compute the FFT of x[], assuming its length is a power of 2
+    // compute the services.FFT of x[], assuming its length is a power of 2
     public static Complex[] fft(Complex[] x) {
         int n = x.length;
 
         // base case
         if (n == 1) return new Complex[] { x[0] };
 
-        // radix 2 Cooley-Tukey FFT
+        // radix 2 Cooley-Tukey services.FFT
         if (n % 2 != 0) {
             throw new IllegalArgumentException("n is not a power of 2");
         }
@@ -63,7 +65,7 @@ public class FFT {
     }
 
 
-    // compute the inverse FFT of x[], assuming its length is a power of 2
+    // compute the inverse services.FFT of x[], assuming its length is a power of 2
     public static Complex[] ifft(Complex[] x) {
         int n = x.length;
         Complex[] y = new Complex[n];
@@ -73,7 +75,7 @@ public class FFT {
             y[i] = x[i].conjugate();
         }
 
-        // compute forward FFT
+        // compute forward services.FFT
         y = fft(y);
 
         // take conjugate again
@@ -101,7 +103,7 @@ public class FFT {
 
         int n = x.length;
 
-        // compute FFT of each sequence
+        // compute services.FFT of each sequence
         Complex[] a = fft(x);
         Complex[] b = fft(y);
 
@@ -111,7 +113,7 @@ public class FFT {
             c[i] = a[i].times(b[i]);
         }
 
-        // compute inverse FFT
+        // compute inverse services.FFT
         return ifft(c);
     }
 
@@ -135,7 +137,7 @@ public class FFT {
    /***************************************************************************
     *  Test client and sample execution
     *
-    *  % java FFT 4
+    *  % java services.FFT 4
     *  x
     *  -------------------
     *  -0.03480425839330703
@@ -179,29 +181,29 @@ public class FFT {
 
 //    public static void main(String[] args) {
 //        int n = Integer.parseInt(args[0]);
-//        Complex[] x = new Complex[n];
+//        commons.Complex[] x = new commons.Complex[n];
 //
 //        // original data
 //        for (int i = 0; i < n; i++) {
-//            x[i] = new Complex(i, 0);
-//            x[i] = new Complex(-2*Math.random() + 1, 0);
+//            x[i] = new commons.Complex(i, 0);
+//            x[i] = new commons.Complex(-2*Math.random() + 1, 0);
 //        }
 //        show(x, "x");
 //
-//        // FFT of original data
-//        Complex[] y = fft(x);
+//        // services.FFT of original data
+//        commons.Complex[] y = fft(x);
 //        show(y, "y = fft(x)");
 //
-//        // take inverse FFT
-//        Complex[] z = ifft(y);
+//        // take inverse services.FFT
+//        commons.Complex[] z = ifft(y);
 //        show(z, "z = ifft(y)");
 //
 //        // circular convolution of x with itself
-//        Complex[] c = cconvolve(x, x);
+//        commons.Complex[] c = cconvolve(x, x);
 //        show(c, "c = cconvolve(x, x)");
 //
 //        // linear convolution of x with itself
-//        Complex[] d = convolve(x, x);
+//        commons.Complex[] d = convolve(x, x);
 //        show(d, "d = convolve(x, x)");
 //    }
 

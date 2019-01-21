@@ -1,3 +1,10 @@
+import commons.Complex;
+import commons.MathHelper;
+import commons.Timer;
+import commons.VecCommons;
+import services.FFT;
+import services.FileManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +57,7 @@ public class Lab2 extends VecCommons implements MathHelper {
     }
 
     void calculateFFT() {
-        System.out.println("4. FFT in");
+        System.out.println("4. services.FFT in");
         Timer timer = new Timer();
         Complex[] complexX = new Complex[vectorX.size()];
         for (int i = 0; i < vectorX.size(); i++) {
@@ -64,7 +71,7 @@ public class Lab2 extends VecCommons implements MathHelper {
             vectorRe.add(reimArray[i].re());
             vectorIm.add(reimArray[i].im());
         }
-        System.out.println("5. FFT Elapsed time: " + timer + " ms.");
+        System.out.println("5. services.FFT Elapsed time: " + timer + " ms.");
 
         FileManager.saveVectorToFile(vectorRe, "vectorReFFT", "Vre");
         FileManager.saveVectorToFile(vectorIm, "vectorImFFT", "Vim");

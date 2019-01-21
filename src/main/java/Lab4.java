@@ -1,3 +1,5 @@
+import commons.VecCommons;
+
 import java.util.ArrayList;
 import java.util.List;
 

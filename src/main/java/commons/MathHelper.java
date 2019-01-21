@@ -1,3 +1,5 @@
+package commons;
+
 public interface MathHelper {
 
     default double log(double x, double base)

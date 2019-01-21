@@ -1,4 +1,7 @@
 import org.jfree.chart.ChartPanel;
+import services.ChartManager;
+import services.FileManager;
+import services.FrameManager;
 
 import java.awt.*;
 import java.util.List;
@@ -47,16 +50,16 @@ public class MainClass {
         List<Double> mdkVec2 = lab2.getVectorMdkFFT();
         List<Double> fkVec2 = lab2.getVectorFkFFT();
 
-//        FileManager.saveVectorToFile(mkVec, "mkVec");
-//        FileManager.saveVectorToFile(mdkVec, "mdkVec");
-//        FileManager.saveVectorToFile(fkVec, "fkVec");
-//        FileManager.saveVectorToFile(xVector, "xVector");
-//        FileManager.saveVectorToFile(nVector, "nVector");
+//        services.FileManager.saveVectorToFile(mkVec, "mkVec");
+//        services.FileManager.saveVectorToFile(mdkVec, "mdkVec");
+//        services.FileManager.saveVectorToFile(fkVec, "fkVec");
+//        services.FileManager.saveVectorToFile(xVector, "xVector");
+//        services.FileManager.saveVectorToFile(nVector, "nVector");
 
 //        ChartPanel panel = chartManager.makeXYLineChart("DFT M(k)" + vecName, "f(k)", fkVec, "M(k)", mkVec);
 //        ChartPanel panel = chartManager.makeXYLineChart("DFT M'(k)" + vecName, "f(k)", fkVec, "M'(k)", mdkVec);
-//        ChartPanel panel = chartManager.makeXYLineChart("Lab 2 FFT, " + vecName, "f(k)", fkVec2, "M(k)", mkVec2);
-        ChartPanel panel = chartManager.makeXYLineChart("Lab 2 FFT, " + vecName, "f(k)", fkVec2, "M'(k)", mdkVec2);
+//        ChartPanel panel = chartManager.makeXYLineChart("Lab 2 services.FFT, " + vecName, "f(k)", fkVec2, "M(k)", mkVec2);
+        ChartPanel panel = chartManager.makeXYLineChart("Lab 2 services.FFT, " + vecName, "f(k)", fkVec2, "M'(k)", mdkVec2);
         String fileName = vecName + "_fft_mdk";
         frameManager.add(panel);
 
