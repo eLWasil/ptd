@@ -1,5 +1,6 @@
 package services;
 
+import commons.VecCommons;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -43,7 +44,17 @@ public class ChartManager {
     private List<String> filenames = new ArrayList<>();
     private JFreeChart jFreeChart = null;
 
-    public final ChartPanel makeXYLineChart(String title, String xTitle, List xVector, String yTitle, List yVector) {
+    public final ChartPanel makeXYLineChart(String title, String xTitle, List<Double> xVector, String yTitle, List<Double> yVector) {
+        double[] vec1 = new double[xVector.size()];
+        double[] vec2 = new double[yVector.size()];
+        for (int i = 0; i < xVector.size() && i < yVector.size(); i++) {
+            vec1[i] = xVector.get(i);
+            vec2[i] = yVector.get(i);
+        }
+        return makeXYLineChart(title, xTitle, vec1, yTitle, vec2);
+    }
+
+    public final ChartPanel makeXYLineChart(String title, String xTitle, double[] xVector, String yTitle, double[] yVector) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
@@ -51,49 +62,43 @@ public class ChartManager {
         this.jFreeChart = ChartFactory.createXYLineChart(
                 title ,
                 xTitle, yTitle,
-                createXYDataset(xVector, yVector) ,
+                createXYDataset(xVector, yVector),
                 PlotOrientation.VERTICAL ,
                 SHOW_LEGENDS , SHOW_TOOLTIPS, false);
 
         ChartPanel chartPanel = new ChartPanel(jFreeChart);
         chartPanel.setPreferredSize(new java.awt.Dimension( (int)Math.round(width), (int)Math.round(height)));
         final XYPlot plot = jFreeChart.getXYPlot();
+        jFreeChart.getLegend().setVisible(false);
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+        renderer.setBaseShapesFilled(false);
+        renderer.setBaseShapesVisible(false);
         renderer.setSeriesPaint(0, Color.RED);
-        renderer.setSeriesStroke(0 , new BasicStroke(1.0f));
+        renderer.setSeriesStroke(0 , new BasicStroke(0.6f));
         plot.setRenderer(renderer);
 
 
         return chartPanel;
     }
 
-    private XYDataset createXYDataset(List xVector, List yVector) {
+    private XYDataset createXYDataset(double[] xVector, double[] yVector) {
         final XYSeries xySeries = new XYSeries( "NeedToBeHere" );
 
-
-        for (int i = 0; i < xVector.size() && i < yVector.size(); i++) {
-            if (xVector.get(0) instanceof Integer) {
-                if (yVector.get(0) instanceof Integer) {
-                    xySeries.add((int)xVector.get(i), (int)yVector.get(i));
-                } else if (yVector.get(0) instanceof Double) {
-                    xySeries.add((int)xVector.get(i), (double)yVector.get(i));
-                }
-            } else if (xVector.get(0) instanceof Double) {
-                if (yVector.get(0) instanceof Integer) {
-                    xySeries.add((double)xVector.get(i), (int)yVector.get(i));
-                } else if (yVector.get(0) instanceof Double) {
-                    xySeries.add((double)xVector.get(i), (double)yVector.get(i));
-                }
+        double maxV = VecCommons.findMax(yVector);
+        for (int i = 0; i < xVector.length && i < yVector.length; i++) {
+            if (Double.isInfinite(yVector[i])) {
+                yVector[i] = maxV + 100;
             }
+            xySeries.add(xVector[i], yVector[i]);
         }
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(xySeries);
 
         final XYSeries min = new XYSeries( "Min" );
-        min.add( 0.0 , -10.0 );
+        min.add( xVector[0] , - 400);
         final XYSeries max = new XYSeries( "Max" );
-        max.add( 0.0 , 10.0 );
+        max.add( xVector[0], + 400 );
 
         dataset.addSeries(min);
         dataset.addSeries(max);
@@ -101,7 +106,7 @@ public class ChartManager {
         return dataset;
     }
 
-    public static void saveChart(final String fileName, final ChartPanel chartPanel, final JFreeChart jFreeChart) {
+    public void saveChart(final String fileName, final ChartPanel chartPanel, final JFreeChart jFreeChart) {
         OutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(fileName + ".png");
@@ -111,6 +116,7 @@ public class ChartManager {
                     chartPanel.getWidth(),
                     chartPanel.getHeight()
             );
+            outputStream.flush();
             outputStream.close();
         } catch (IOException e) {
             System.out.println("IOException: " + fileName + " \n" + e.getMessage());
@@ -119,21 +125,21 @@ public class ChartManager {
         }
     }
 
-    public static void saveMultiple(final JFreeChart jFreeChart, List<ChartPanel> panels) {
-        if (instance == null) {
-            new ChartManager();
-        }
-        List<String> filenames = instance.getFilenames();
-
-        System.out.println("save multiple before loop");
-
-        for (int i = 0; i < panels.size() && i < filenames.size(); i++) {
-            saveChart(filenames.get(i), panels.get(i), jFreeChart);
-            System.out.println("Saving " + filenames.get(i) + " - done.");
-        }
-
-        instance.getFilenames().clear();
-    }
+//    public static void saveMultiple(final JFreeChart jFreeChart, List<ChartPanel> panels) {
+//        if (instance == null) {
+//            new ChartManager();
+//        }
+//        List<String> filenames = instance.getFilenames();
+//
+//        System.out.println("save multiple before loop");
+//
+//        for (int i = 0; i < panels.size() && i < filenames.size(); i++) {
+//            saveChart(filenames.get(i), panels.get(i), jFreeChart);
+//            System.out.println("Saving " + filenames.get(i) + " - done.");
+//        }
+//
+//        instance.getFilenames().clear();
+//    }
 
     public static void prepareFileNames(String ... files) {
         if (instance == null) {

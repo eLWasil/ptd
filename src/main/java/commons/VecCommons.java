@@ -30,6 +30,26 @@ public abstract class VecCommons {
         System.out.println("==========================================================");
     }
 
+    public static double findMin(double[] arr) {
+        double min = (arr.length == 0 ? 0 : arr[0]);
+
+        for (int i = 1; i < arr.length; i++) {
+            min = (min < arr[i] ? min : arr[i]);
+        }
+
+        return min;
+    }
+
+    public static double findMax(double[] arr) {
+        double max = (arr.length == 0 ? 0 : arr[0]);
+
+        for (int i = 1; i < arr.length; i++) {
+            max = (max > arr[i] ? max : arr[i]);
+        }
+
+        return max;
+    }
+
     public static double findMinDoubleList(List vector) {
         if (vector.size() >= 0) {
             double min = (double)vector.get(0);
