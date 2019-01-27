@@ -117,17 +117,17 @@ public class MainClass {
     public static void Lab4() {
         Lab4 lab4 = new Lab4();
 
-        double[] ask = lab4.a_ASK;
+        double[] ask = lab4.getA_ASK();
         double[][] za = lab4.getA_ZaSpectrum();
         double zaPasmo = VecCommons.szerokoscPasma(za[2]);
         System.out.println("Szerokość pasma sygnału zmodulowanego ASK = " + (zaPasmo));
 
-        double[] fsk = lab4.a_FSK;
+        double[] fsk = lab4.getA_FSK();
         double[][] zf = lab4.getA_ZfSpectrum();
         double zfPasmo = VecCommons.szerokoscPasma(zf[2]);
         System.out.println("Szerokość pasma sygnału zmodulowanego FSK = " + (zfPasmo));
 
-        double[] psk = lab4.a_PSK;
+        double[] psk = lab4.getA_PSK();
         double[][] zp = lab4.getA_ZpSpectrum();
         double zpPasmo = VecCommons.szerokoscPasma(zp[2]);
         System.out.println("Szerokość pasma sygnału zmodulowanego PSK = " + (zpPasmo));
@@ -138,7 +138,15 @@ public class MainClass {
 //        panelList.add(chartManager.makeXYLineChart("Lab4 PSK", time, zp[0], "Zp(t) fs: " + lab4.fs, psk));
 //        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo ASK", time, za[0], "Za(t) fs = " + lab4.fs, za[1]));
 //        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo FSK", time, zf[0], "Zf(t) fs = " + lab4.fs, zf[1]));
-        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo PSK", time, zp[0], "Zp(t) fs = " + lab4.fs, zp[1]));
+//        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo PSK", time, zp[0], "Zp(t) fs = " + lab4.fs, zp[1]));
+
+    }
+
+    public static void Lab5() {
+        Lab5 lab5 = new Lab5();
+
+        panelList.add(chartManager.makeXYLineChart("Lab5 ASK Xt", "Time", lab5.getArr_Time(), "X(t)", lab5.getArr_Xt()));
+
 
     }
 
@@ -148,7 +156,8 @@ public class MainClass {
         frameManager.setLayout(layout);
 
 //        Lab3();
-        Lab4();
+//        Lab4();
+        Lab5();
 
         if (panelList != null && !panelList.isEmpty()) {
             for (int i = 0; i < panelList.size(); i++) {
@@ -159,7 +168,7 @@ public class MainClass {
 
             String uuid = UUID.randomUUID().toString();
 
-            System.out.println("Filename:  " + fileName);
+//            System.out.println("Filename:  " + fileName);
             chartManager.saveChart(fileName + uuid, panelList.get(currentIndex), chartManager.getjFreeChart());
 
         }

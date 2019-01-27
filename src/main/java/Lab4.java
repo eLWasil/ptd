@@ -9,16 +9,19 @@ public class Lab4 extends VecCommons
     public final int N = 2;
     public final double totalTime = 1; // sec
     double timeByte;
-    double[] a_ASK;
-    double[] a_FSK;
-    double[] a_PSK;
+    private double[] a_ASK;
+    private double[] a_FSK;
+    private double[] a_PSK;
 
-    final double nMax = totalTime * fs;
+    private double[] sant, sn1t, sn2t, spnt;
 
-    double[][] a_ZaSpectrum;
-    double[][] a_ZfSpectrum;
-    double[][] a_ZpSpectrum;
+    private final double nMax = totalTime * fs;
 
+    private double[][] a_ZaSpectrum;
+    private double[][] a_ZfSpectrum;
+    private double[][] a_ZpSpectrum;
+
+    public double[] a_Time;
 
     public static String message = "L";
     private char[] signBytes;
@@ -40,10 +43,13 @@ public class Lab4 extends VecCommons
         this.timeByte = totalTime / signBytes.length();
         int fnByte = (int)Math.ceil(nMax / signBytes.length());
 
+        a_Time = new double[(int)nMax];
         bytes = new short[(int)nMax];
         for (int i = 0; i < nMax; i++) {
             int idx = (int)Math.floor(i / fnByte);
 
+            a_Time[i] = (double)i / fs;
+            System.out.println(a_Time[i]);
             if (signBytes.charAt(idx) == '0') {
                 bytes[i] = 0;
             } else {
@@ -54,10 +60,6 @@ public class Lab4 extends VecCommons
         a_ASK = ASKCalculate(16, 32);
         a_FSK = FSKCalculate();
         a_PSK = PSKCalculate();
-
-        for (int i = 0; i < 200; i+=10) {
-//            System.out.println("FSK = " + a_FSK[i] + " " + " PSK = " + a_PSK[i]);
-        }
 
         a_ZaSpectrum = calculateFFT(a_ASK);
         a_ZfSpectrum = calculateFFT(a_FSK);
@@ -72,13 +74,14 @@ public class Lab4 extends VecCommons
     public double[] ASKCalculate(double A1, double A2) {
         double fn = N * 1 / timeByte;
         double[] results = new double[(int)Math.ceil(nMax)];
+        sant = new double[(int)Math.ceil(nMax)];
 
         for (int n = 0; n < nMax; n++) {
-            double result;
+            double result = A2 * Math.sin(2 * Math.PI * fn * (n + 1) / fs);
+            sant[n] = result;
+
             if (bytes[n] == 0) {
                 result = A1 * Math.sin(2 * Math.PI * fn * (n + 1) / fs);
-            } else {
-                result = A2 * Math.sin(2 * Math.PI * fn * (n + 1) / fs);
             }
             results[n] = result * POWER;
         }
@@ -90,13 +93,16 @@ public class Lab4 extends VecCommons
         double fn1 = (N + 1) / timeByte;
         double fn2 = (N + 2) / timeByte;
 
-
+        sn1t = new double[(int)Math.ceil(nMax)];
+        sn2t = new double[(int)Math.ceil(nMax)];
         for (int n = 0; n < nMax; n++) {
             double result;
+            sn1t[n] = Math.sin(2 * Math.PI * fn1 * (n + 1) / fs);
+            sn2t[n] = Math.sin(2 * Math.PI * fn2 * (n + 1) / fs);
             if (bytes[n] == 0) {
-                result = Math.sin(2 * Math.PI * fn1 * (n + 1) / fs);
+                result = sn1t[n];
             } else {
-                result = Math.sin(2 * Math.PI * fn2 * (n + 1) / fs);
+                result = sn2t[n];
             }
             results[n] = result * POWER;
         }
@@ -108,13 +114,12 @@ public class Lab4 extends VecCommons
         double results[] = new double[(int)Math.ceil(nMax)];
         double fn = N * 1 / timeByte;
 
-        int i = 0, j = 0;
+        spnt = new double[(int)Math.ceil(nMax)];
         for (int n = 0; n < nMax; n++) {
+            double result = Math.sin(2 * Math.PI * fn * (n + 1) / fs);
+            spnt[n] = result;
 
-            double result;
-            if (bytes[n] == 0) {
-                result = Math.sin(2 * Math.PI * fn * (n + 1) / fs);
-            } else {
+            if (bytes[n] == 1) {
                 result = Math.sin(2 * Math.PI * fn * (n + 1) / fs + Math.PI);
             }
             results[n] = result * POWER;
@@ -187,5 +192,21 @@ public class Lab4 extends VecCommons
 
     public double[][] getA_ZpSpectrum() {
         return a_ZpSpectrum;
+    }
+
+    public double[] getSant() {
+        return sant;
+    }
+
+    public double[] getSn1t() {
+        return sn1t;
+    }
+
+    public double[] getSn2t() {
+        return sn2t;
+    }
+
+    public double[] getSpnt() {
+        return spnt;
     }
 }
