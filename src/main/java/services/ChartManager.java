@@ -23,6 +23,9 @@ import static java.lang.Boolean.TRUE;
 
 public class ChartManager {
 
+    private static final int MAX_Y = 200;
+    private static final int MIN_Y = 100;
+
     public static ChartManager getInstance() {
         if (instance == null) {
             instance = new ChartManager();
@@ -96,9 +99,9 @@ public class ChartManager {
         dataset.addSeries(xySeries);
 
         final XYSeries min = new XYSeries( "Min" );
-        min.add( xVector[0] , - 400);
+        min.add( xVector[0] , -MIN_Y);
         final XYSeries max = new XYSeries( "Max" );
-        max.add( xVector[0], + 400 );
+        max.add( xVector[0], + MAX_Y );
 
         dataset.addSeries(min);
         dataset.addSeries(max);

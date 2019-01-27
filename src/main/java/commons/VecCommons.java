@@ -1,6 +1,5 @@
 package commons;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class VecCommons {
@@ -76,10 +75,10 @@ public abstract class VecCommons {
         return 0;
     }
 
-    public static List makeStronger(List vector, int power) {
-        List vectorToReturn = new ArrayList();
-        for (int i = 0; i < vector.size(); i++) {
-            vectorToReturn.add((double)vector.get(i) * power);
+    public static double[] makeStronger(double[] vector, int power) {
+        double[] vectorToReturn = new double[vector.length];
+        for (int i = 0; i < vector.length; i++) {
+            vectorToReturn[i] = (vector[i] * power);
         }
         return vectorToReturn;
     }
@@ -99,6 +98,18 @@ public abstract class VecCommons {
         }
         builder.append("\n]");
         return builder.toString();
+    }
+
+    public static double szerokoscPasma(double[] arr) {
+        return szerokoscPasma(arr, 1);
+    }
+
+    public static double szerokoscPasma(double[] arr, int powered) {
+        double min = findMin(arr) / powered;
+        double max = findMax(arr) / powered;
+
+        double result = max - min;
+        return result;
     }
 
 }

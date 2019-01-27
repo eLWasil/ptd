@@ -1,118 +1,156 @@
+import commons.Complex;
 import commons.VecCommons;
-
-import java.util.ArrayList;
-import java.util.List;
+import services.FFT;
 
 public class Lab4 extends VecCommons
 {
-    final int TB = 1000; // :/ na liczbe bitów = Tb = Time / M
+    public static final int POWER = 15;
+    public final int fs = 512;
+    public final int N = 2;
+    public final double totalTime = 1; // sec
+    double timeByte;
+    double[] a_ASK;
+    double[] a_FSK;
+    double[] a_PSK;
 
-    Lab1 lab1;
+    final double nMax = totalTime * fs;
 
-    public List vectorN = new ArrayList();
-    List vectorZA = new ArrayList();
-    List vectorZF = new ArrayList();
-    List vectorZP = new ArrayList();
+    double[][] a_ZaSpectrum;
+    double[][] a_ZfSpectrum;
+    double[][] a_ZpSpectrum;
+
+
+    public static String message = "L";
+    private char[] signBytes;
+    short[] bytes;
 
     public Lab4() {
-        int N = 200;
-        lab1 = new Lab1(N);
-
-        ASKCalculate("Hello World");
-        System.out.println(findMinDoubleList(vectorZA) + ", " + findMaxDoubleList(vectorZA));
+        reCalculate(999);
     }
 
-    public void ASKCalculate(String message) {
-        double A1 = 1;
-        double A2 = 2;
+    public Lab4(String message) {
+        this.message = message;
+        reCalculate(123);
+    }
 
+    @Override
+    protected void reCalculate(int indexOutOfBound) {
 
-
-        String sign = message;
         String signBytes = getBytesMessage(message);
+        this.timeByte = totalTime / signBytes.length();
+        int fnByte = (int)Math.ceil(nMax / signBytes.length());
 
-        int Ts = 1; // sekundy
-        int Fs = 8000;
-        int N = Ts * Fs;
-//        TB = Ts / signBytes.length();
-//        time = n / Fs;
+        bytes = new short[(int)nMax];
+        for (int i = 0; i < nMax; i++) {
+            int idx = (int)Math.floor(i / fnByte);
 
-        System.out.println(message);
-        System.out.println(signBytes);
-        System.out.println("ASK Calculate, bytes size: " +signBytes.length());
-
-        for (int i = 0; i < signBytes.length(); i++) {
-            char mByte = signBytes.charAt(i);
-            for (int n = 0; n < N; n++) {
-                vectorN.add(i * N + n);
-                if (mByte == '0') {
-                    moduloForZero(vectorZA);
-                } else if (mByte == '1') {
-                    moduloForOne(vectorZA);
-                }
+            if (signBytes.charAt(idx) == '0') {
+                bytes[i] = 0;
+            } else {
+                bytes[i] = 1;
             }
         }
-        // time = N / ilość bitów
-    }
 
-    int byteTime = 10;
-    double Fn = 2000 * 1 / byteTime;
+        a_ASK = ASKCalculate(16, 32);
+        a_FSK = FSKCalculate();
+        a_PSK = PSKCalculate();
 
-    private void moduloForOne(List result) {
-        double value;
-        for (int i = 0; i < byteTime; i++) {
-            value = 1.13 * Math.sin((2 * Math.PI * Fn * i) * 57.2957795);
-            result.add(value);
-        }
-    }
-
-    private void moduloForZero(List result) {
-        double value;
-        for (int i = 0; i < byteTime; i++) {
-            value = 0.666 * Math.sin((2 * Math.PI * Fn * i) * 57.2957795);
-            result.add(value);
-        }
-    }
-
-    public List buildHzVec(List calculatesVector, int timeSec) {
-        List destinyVector = new ArrayList(calculatesVector.size());
-        for (int i = 1; i <= calculatesVector.size(); i++) {
-            destinyVector.add((timeSec / i));
-        }
-        return destinyVector;
-    }
-
-    double time = 0;
-
-    public void FSKCalculate(byte mByte) {
-        double result = 0;
-
-        if (mByte == 0) {
-            result = Math.sin(2 * Math.PI * Fn * time);
-        } else if (mByte == 1) {
-            result = Math.sin(2 * Math.PI * Fn * time);
+        for (int i = 0; i < 200; i+=10) {
+//            System.out.println("FSK = " + a_FSK[i] + " " + " PSK = " + a_PSK[i]);
         }
 
-        vectorZF.add(result);
-        // time = N / ilość bitów
+        a_ZaSpectrum = calculateFFT(a_ASK);
+        a_ZfSpectrum = calculateFFT(a_FSK);
+        a_ZpSpectrum = calculateFFT(a_PSK);
     }
 
+    public void setMessage(String message) {
+        Lab4.message = message;
+        reCalculate(0);
+    }
 
-    public void PSKCalculate(byte mByte) {
-        double result = 0;
+    public double[] ASKCalculate(double A1, double A2) {
+        double fn = N * 1 / timeByte;
+        double[] results = new double[(int)Math.ceil(nMax)];
 
-        if (mByte == 0) {
-            result = Math.sin(2 * Math.PI * Fn * time);
-        } else if (mByte == 1) {
-            result = Math.sin((2 * Math.PI * Fn * time) + Math.PI);
+        for (int n = 0; n < nMax; n++) {
+            double result;
+            if (bytes[n] == 0) {
+                result = A1 * Math.sin(2 * Math.PI * fn * (n + 1) / fs);
+            } else {
+                result = A2 * Math.sin(2 * Math.PI * fn * (n + 1) / fs);
+            }
+            results[n] = result * POWER;
         }
-
-        vectorZP.add(result);
-        // time = N / ilość bitów
+        return results;
     }
 
-    // 4 sekundy / liczba bitów
-    // Tb (sec) * Tb = tb w próbkach
+    public double[] FSKCalculate() {
+        double results[] = new double[(int)Math.ceil(nMax)];
+        double fn1 = (N + 1) / timeByte;
+        double fn2 = (N + 2) / timeByte;
+
+
+        for (int n = 0; n < nMax; n++) {
+            double result;
+            if (bytes[n] == 0) {
+                result = Math.sin(2 * Math.PI * fn1 * (n + 1) / fs);
+            } else {
+                result = Math.sin(2 * Math.PI * fn2 * (n + 1) / fs);
+            }
+            results[n] = result * POWER;
+        }
+        return results;
+    }
+
+
+    public double[] PSKCalculate() {
+        double results[] = new double[(int)Math.ceil(nMax)];
+        double fn = N * 1 / timeByte;
+
+        int i = 0, j = 0;
+        for (int n = 0; n < nMax; n++) {
+
+            double result;
+            if (bytes[n] == 0) {
+                result = Math.sin(2 * Math.PI * fn * (n + 1) / fs);
+            } else {
+                result = Math.sin(2 * Math.PI * fn * (n + 1) / fs + Math.PI);
+            }
+            results[n] = result * POWER;
+        }
+        for (int w = 0; w < 10; w++) {
+
+//            System.out.println("result = " + results[w]);
+        }
+        return results;
+    }
+
+    public double[][] calculateFFT(double[] vector) {
+        commons.Complex[] arr_FFT = new commons.Complex[vector.length];
+        for (int i = 0; i < vector.length; i++) {
+            arr_FFT[i] = new Complex(vector[i], 0);
+        }
+        commons.Complex[] fftComplex = FFT.fft(arr_FFT);
+
+        double[][] results = new double[3][fftComplex.length];
+        for (int i = 0; i < fftComplex.length; i++) {
+            double Re = fftComplex[i].re();
+            double Im = fftComplex[i].im();
+
+            double z = Math.sqrt(Re * Re + Im * Im);
+            double logZ = 10 * Math.log(z);
+
+//            if (i < 3) {
+//                System.out.println(i + ". = " + z + " " + logZ + " " + Re + " " + Im);
+//            }
+
+            results[0][i] = Double.valueOf(i * fs / fftComplex.length);
+            results[1][i] = z;
+            results[2][i] = logZ;
+        }
+        return results;
+    }
 
     public byte[] getBytesArray(String word) {
         return word.getBytes();
@@ -127,8 +165,27 @@ public class Lab4 extends VecCommons
         return builder.toString();
     }
 
-    @Override
-    protected void reCalculate(int indexOutOfBound) {
+    public double[][] getA_ZaSpectrum() {
+        return a_ZaSpectrum;
+    }
 
+    public double[] getA_ASK() {
+        return a_ASK;
+    }
+
+    public double[] getA_FSK() {
+        return a_FSK;
+    }
+
+    public double[] getA_PSK() {
+        return a_PSK;
+    }
+
+    public double[][] getA_ZfSpectrum() {
+        return a_ZfSpectrum;
+    }
+
+    public double[][] getA_ZpSpectrum() {
+        return a_ZpSpectrum;
     }
 }

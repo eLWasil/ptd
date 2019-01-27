@@ -57,7 +57,7 @@ public class Lab1 extends VecCommons implements MathHelper {
         calculateUn(1, convHzToSeconds(1024));
         calculateGTime(1, convHzToSeconds(1024));
 
-        moduloTest = makeStronger(vectorX, 2);
+//        moduloTest = makeStronger(vectorX, 2);
     }
 
     public void fillNVec() {

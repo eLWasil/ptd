@@ -1,3 +1,4 @@
+import commons.VecCommons;
 import org.jfree.chart.ChartPanel;
 import services.ChartManager;
 import services.FrameManager;
@@ -5,6 +6,7 @@ import services.FrameManager;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainClass {
 
@@ -23,10 +25,12 @@ public class MainClass {
 
     private static FrameManager frameManager = new FrameManager("PTD");
     private static ChartManager chartManager = ChartManager.getInstance();
-    private static List<ChartPanel> panelList = null;
 
     private static String vecName = "xVector";
     private static String fileName = vecName + "nVector";
+
+    static List<ChartPanel> panelList = new ArrayList<>(1);
+    static int currentIndex = 0;
 
     public static void Lab1() {
         Lab1 think = new Lab1(128);
@@ -80,11 +84,8 @@ public class MainClass {
 //
     }
 
-    static int currentIndex = 0;
 
     public static void Lab3() {
-        panelList = new ArrayList<>(1);
-
         double ka1 = 0.67;
         double ka2 = 7.03;
         double ka3 = 21.12;
@@ -92,7 +93,6 @@ public class MainClass {
         double kp2 = Math.PI / 13;
         double kp3 = 44.666;
         Lab3 lab3 = new Lab3(ka1, kp1);
-        currentIndex = 0;
         int zIdx = 1;
 
         double[] xVec = lab3.getArr_Fn();
@@ -114,20 +114,53 @@ public class MainClass {
         fileName = (currentIndex == 0 ? "Za" : "Zp") + zIdx;
     }
 
+    public static void Lab4() {
+        Lab4 lab4 = new Lab4();
+
+        double[] ask = lab4.a_ASK;
+        double[][] za = lab4.getA_ZaSpectrum();
+        double zaPasmo = VecCommons.szerokoscPasma(za[2]);
+        System.out.println("Szerokość pasma sygnału zmodulowanego ASK = " + (zaPasmo));
+
+        double[] fsk = lab4.a_FSK;
+        double[][] zf = lab4.getA_ZfSpectrum();
+        double zfPasmo = VecCommons.szerokoscPasma(zf[2]);
+        System.out.println("Szerokość pasma sygnału zmodulowanego FSK = " + (zfPasmo));
+
+        double[] psk = lab4.a_PSK;
+        double[][] zp = lab4.getA_ZpSpectrum();
+        double zpPasmo = VecCommons.szerokoscPasma(zp[2]);
+        System.out.println("Szerokość pasma sygnału zmodulowanego PSK = " + (zpPasmo));
+
+        String time = "Time " + lab4.totalTime + "s";
+//        panelList.add(chartManager.makeXYLineChart("Lab4 ASK", time, za[0], "Za(t) fs: " + lab4.fs, ask));
+//        panelList.add(chartManager.makeXYLineChart("Lab4 FSK", time, zf[0], "Zf(t) fs: " + lab4.fs, fsk));
+//        panelList.add(chartManager.makeXYLineChart("Lab4 PSK", time, zp[0], "Zp(t) fs: " + lab4.fs, psk));
+//        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo ASK", time, za[0], "Za(t) fs = " + lab4.fs, za[1]));
+//        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo FSK", time, zf[0], "Zf(t) fs = " + lab4.fs, zf[1]));
+        panelList.add(chartManager.makeXYLineChart("Lab4 Widmo PSK", time, zp[0], "Zp(t) fs = " + lab4.fs, zp[1]));
+
+    }
+
 
     public static void main(String[] args) {
         GridLayout layout = new GridLayout(1, 1);
         frameManager.setLayout(layout);
 
-        Lab3();
-
+//        Lab3();
+        Lab4();
 
         if (panelList != null && !panelList.isEmpty()) {
-            frameManager.add(panelList.get(currentIndex));
+            for (int i = 0; i < panelList.size(); i++) {
+                frameManager.add(panelList.get(i));
+            }
             frameManager.build();
+            frameManager = null;
+
+            String uuid = UUID.randomUUID().toString();
 
             System.out.println("Filename:  " + fileName);
-            chartManager.saveChart(fileName, panelList.get(currentIndex), chartManager.getjFreeChart());
+            chartManager.saveChart(fileName + uuid, panelList.get(currentIndex), chartManager.getjFreeChart());
 
         }
 
