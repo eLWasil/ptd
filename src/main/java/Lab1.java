@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Lab1 extends VecCommons implements MathHelper {
 
-    static final double Fn = 100; // Hz
+    static final double Fn = 256; // Hz
     static final double Time = 1; // s
     private final double F = 4; // Hz
     private final double PHI = (7 * Math.PI) / 9;
-    private double nMax = 128;
+    private double nMax = 1024;
 
     public List moduloTest = new ArrayList();
     private List vectorN = new ArrayList();

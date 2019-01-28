@@ -2,6 +2,7 @@ package commons;
 
 public class Timer {
 
+    public static final int MILISEC = 1000000;
     private long begin;
     private long end;
 
@@ -11,9 +12,15 @@ public class Timer {
 
     public void reset() { begin = System.nanoTime(); }
 
+    public final double milisec() {
+        end = System.nanoTime();
+        return (end - begin) / MILISEC;
+    }
+
     @Override
     public String toString() {
         end = System.nanoTime();
-        return String.valueOf((end - begin) / 1000000);
+        return String.valueOf((end - begin) / MILISEC);
     }
+
 }

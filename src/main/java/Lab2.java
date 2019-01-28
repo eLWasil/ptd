@@ -3,12 +3,14 @@ import commons.MathHelper;
 import commons.Timer;
 import commons.VecCommons;
 import services.FFT;
-import services.FileManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lab2 extends VecCommons implements MathHelper {
+
+    public static int sumMilisecDFT = 0;
+    public static int sumMilisecFFT = 0;
 
     private List<Double> vectorX        = new ArrayList<>();
 
@@ -23,10 +25,18 @@ public class Lab2 extends VecCommons implements MathHelper {
     private List<Double> vectorMdkFFT   = new ArrayList();
     private List<Double> vectorFkFFT    = new ArrayList();
 
-    private int nMax = 4;
+    private int nMax = 32;
+
+    String vectorName = "";
 
     public void reCalculate(List vector) {
         this.vectorX = vector;
+        reCalculate(vector.size());
+    }
+
+    public void reCalculate(List vector, String vecName) {
+        this.vectorX = vector;
+        this.vectorName = vecName;
         reCalculate(vector.size());
     }
 
@@ -45,19 +55,26 @@ public class Lab2 extends VecCommons implements MathHelper {
 
         nMax = nNewMax;
 
+
+        Timer timer = new Timer();
         calculateDFT();
+        double dftTime = timer.milisec(); timer.reset();
         vectorMkDFT = calculateMk();
         vectorMdkDFT = calculateDerivativeMk(vectorMkDFT);
         vectorFkDFT = calculateFk();
 
         calculateFFT();
+        double fftTime = timer.milisec(); timer.reset();
         vectorMkFFT = calculateMk();
         vectorMdkFFT = calculateDerivativeMk(vectorMkFFT);
         vectorFkFFT = calculateFk();
+
+        System.out.println(vectorName + " \tDFT = " + dftTime + "ms\t" + (dftTime > 99 ? "" : "\t") + "|\tFFT = " + fftTime + "ms |\t ilosc probek = " + vectorFkFFT.size());
+        sumMilisecDFT += dftTime;
+        sumMilisecFFT += fftTime;
     }
 
     void calculateFFT() {
-        System.out.println("4. services.FFT in");
         Timer timer = new Timer();
         Complex[] complexX = new Complex[vectorX.size()];
         for (int i = 0; i < vectorX.size(); i++) {
@@ -71,16 +88,10 @@ public class Lab2 extends VecCommons implements MathHelper {
             vectorRe.add(reimArray[i].re());
             vectorIm.add(reimArray[i].im());
         }
-        System.out.println("5. services.FFT Elapsed time: " + timer + " ms.");
-
-        FileManager.saveVectorToFile(vectorRe, "vectorReFFT", "Vre");
-        FileManager.saveVectorToFile(vectorIm, "vectorImFFT", "Vim");
     }
 
     public void calculateDFT() {
         Timer timer = new Timer();
-        System.out.println("2. DFT in");
-        System.out.println(nMax);
         for (int k = 0; k < nMax; k++) {
             double Re = 0;
             double Im = 0;
@@ -97,21 +108,7 @@ public class Lab2 extends VecCommons implements MathHelper {
             vectorRe.add(Re);
             vectorIm.add(Im);
         }
-        System.out.println("3. DFT after Elapsed time : " + timer + " ms.");
-
-        FileManager.saveVectorToFile(vectorRe, "vectorReDFT", "Vre");
-        FileManager.saveVectorToFile(vectorIm, "vectorImDFT2", "Vim");
-//        calculateAlphaZVectors();
     }
-
-//    private void calculateAlphaZVectors() {
-//        for (int n = 0; n < vectorRe.size() && n < vectorIm.size(); n++) {
-//            double zResult = getZ((double)vectorRe.get(n), (double)vectorIm.get(n));
-//            vectorZn.add(zResult);
-//            double alphaResult = getAlpha((double)vectorRe.get(n), (double)vectorIm.get(n));
-//            vectorAlphan.add(alphaResult);
-//        }
-//    }
 
     private List<Double> calculateMk() {
         List<Double> vector = new ArrayList<>();

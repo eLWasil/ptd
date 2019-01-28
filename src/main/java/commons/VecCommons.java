@@ -100,16 +100,32 @@ public abstract class VecCommons {
         return builder.toString();
     }
 
-    public static double szerokoscPasma(double[] arr) {
-        return szerokoscPasma(arr, 1);
-    }
+    public static double szerokoscPasma(double[] arr_dB, double[] arr_Hz, int minusDb) {
+        double max = findMax(arr_dB);
+        double minDb = max - minusDb;
 
-    public static double szerokoscPasma(double[] arr, int powered) {
-        double min = findMin(arr) / powered;
-        double max = findMax(arr) / powered;
+        int idxFirst = -1;
+        int idxLast = -1;
+        for (int i = 0; i < arr_dB.length; i++) {
+            if (arr_dB[i] >= minDb && idxFirst == -1) {
+                idxFirst = i;
+            }
+            else if (arr_dB[i] >= minDb && idxFirst != -1) {
+                idxLast = i;
+            }
+        }
 
-        double result = max - min;
-        return result;
+        if (idxFirst == -1 || idxLast == -1) {
+            System.out.println("Nie mozna obliczyc pasma poniewaz zadne wartosci nie wykraczaja poza " + minDb + " dB.");
+            return 0;
+        }
+        if (idxFirst >= arr_Hz.length || idxLast >= arr_Hz.length) {
+            System.out.println("Nie mozna obliczyc pasma. Index poza zakresem Hz array.");
+            return 0;
+        }
+        else {
+            return (arr_Hz[idxLast] - arr_Hz[idxFirst]);
+        }
     }
 
 }

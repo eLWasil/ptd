@@ -101,9 +101,6 @@ public class Lab4 extends VecCommons
             double result;
             sn1t[n] = Math.sin(2 * Math.PI * fn1 * (n + 1) / fs);
             sn2t[n] = Math.sin(2 * Math.PI * fn2 * (n + 1) / fs);
-            if (n < 10) {
-                System.out.println("s1 = " + sn1t[n] + " s2 = " + sn2t[n]);
-            }
 
             if (bytes[n] == 0) {
                 result = sn1t[n];
