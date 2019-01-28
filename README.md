@@ -14,3 +14,5 @@ All java sources: [code](https://github.com/herupu/ptd/tree/master/src/main/java
 [Lab3](https://github.com/herupu/ptd/tree/master/Lab3)
 
 [Lab4](https://github.com/herupu/ptd/tree/master/Lab4)
+
+[Lab5](https://github.com/herupu/ptd/tree/master/Lab5)
