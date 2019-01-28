@@ -5,27 +5,36 @@ public class Lab5 extends VecCommons {
     private Lab4 lab4;
     private double[]
             arr_Time,
-            arr_XtASK, arr_PtASK, arr_MtASK,
-            arr_XtPSK, arr_PtPSK, arr_MtPSK
+            arr_zASK, arr_XtASK, arr_PtASK, arr_MtASK,
+            arr_zPSK, arr_XtPSK, arr_PtPSK, arr_MtPSK,
+            arr_zFSK, arr_Xt1FSK, arr_Xt2FSK, arr_Pt1FSK, arr_Pt2FSK, arr_PtFSK, arr_MtFSK
     ;
 
     public Lab5() {
         lab4 = new Lab4();
 
         arr_Time = lab4.a_Time;
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Lab5, time[" +i+ "] = " + arr_Time[i]);
-        }
 
-        arr_XtASK = calculateXt(lab4.getA_ASK(), lab4.getSant());
+        arr_zASK = lab4.getA_ASK();
+        arr_XtASK = calculateXt(arr_zASK, lab4.getSant());
         arr_PtASK = calculatePt(arr_XtASK);
-        arr_MtASK = calcuateMt(arr_PtASK, 300000);
+        arr_MtASK = calculateMt(arr_PtASK, 300000);
 
-        arr_XtPSK = calculateXt(lab4.getA_PSK(), lab4.getSpnt());
+        arr_zPSK = lab4.getA_PSK();
+        arr_XtPSK = calculateXt(arr_zPSK, lab4.getSpnt());
         arr_PtPSK = calculatePt(arr_XtPSK);
-        arr_MtPSK = calcuateMt(arr_PtPSK, 0);
+        arr_MtPSK = calculateMt(arr_PtPSK, 0);
 
-        System.out.println("Fs = " + lab4.fs + " Arr = " + arr_XtASK.length);
+        arr_zFSK = lab4.getA_FSK();
+        arr_Xt1FSK = calculateXt(arr_zFSK, lab4.getSn1t());
+        arr_Pt1FSK = calculatePt(arr_Xt1FSK);
+
+        arr_Xt2FSK = calculateXt(arr_zFSK, lab4.getSn2t());
+        arr_Pt2FSK = calculatePt(arr_Xt2FSK);
+
+        arr_PtFSK = calculatePt_FSKSum(arr_Pt1FSK, arr_Pt2FSK);
+        arr_MtFSK = calculateMt(arr_PtFSK, 1);
+
     }
 
     @Override
@@ -55,9 +64,7 @@ public class Lab5 extends VecCommons {
         final int f_SquareCount = (int)Math.floor(arr_Y.length / lab4.getBytesCount());
 
         double h = f_SquareCount / f_SquareCount;
-        System.out.println("calculatePt(), h = "  + h);
-
-        double PSum = 0;
+        double PSum;
         for (int i = 0; i < lab4.getBytesCount(); i++) {
             PSum = 0;
             for (int j = 0; j < f_SquareCount; j++) {
@@ -75,7 +82,7 @@ public class Lab5 extends VecCommons {
         return results;
     }
 
-    public double[] calcuateMt(double[] arr_Y, double H) {
+    public double[] calculateMt(double[] arr_Y, double H) {
         double[] results = new double[arr_Y.length];
         for(int i = 0; i < arr_Y.length; i++) {
             if (arr_Y[i] < H) {
@@ -83,6 +90,14 @@ public class Lab5 extends VecCommons {
             } else {
                 results[i] = 1;
             }
+        }
+        return results;
+    }
+
+    public double[] calculatePt_FSKSum(double[] a, double[] b) {
+        double[] results = new double[a.length <= b.length ? a.length : b.length];
+        for (int i = 0; i < a.length && i < b.length; i++) {
+            results[i] = a[i] - b[i];
         }
         return results;
     }
@@ -113,5 +128,41 @@ public class Lab5 extends VecCommons {
 
     public double[] getArr_MtPSK() {
         return arr_MtPSK;
+    }
+
+    public double[] getArr_Xt1FSK() {
+        return arr_Xt1FSK;
+    }
+
+    public double[] getArr_Xt2FSK() {
+        return arr_Xt2FSK;
+    }
+
+    public double[] getArr_Pt1FSK() {
+        return arr_Pt1FSK;
+    }
+
+    public double[] getArr_Pt2FSK() {
+        return arr_Pt2FSK;
+    }
+
+    public double[] getArr_MtFSK() {
+        return arr_MtFSK;
+    }
+
+    public double[] getArr_PtFSK() {
+        return arr_PtFSK;
+    }
+
+    public double[] getArr_zASK() {
+        return arr_zASK;
+    }
+
+    public double[] getArr_zPSK() {
+        return arr_zPSK;
+    }
+
+    public double[] getArr_zFSK() {
+        return arr_zFSK;
     }
 }
