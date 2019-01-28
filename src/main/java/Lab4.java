@@ -26,6 +26,8 @@ public class Lab4 extends VecCommons
     public static String message = "L";
     private char[] signBytes;
     short[] bytes;
+    private int bytesCount;
+
 
     public Lab4() {
         reCalculate(999);
@@ -42,6 +44,7 @@ public class Lab4 extends VecCommons
         String signBytes = getBytesMessage(message);
         this.timeByte = totalTime / signBytes.length();
         int fnByte = (int)Math.ceil(nMax / signBytes.length());
+        bytesCount = signBytes.length();
 
         a_Time = new double[(int)nMax];
         bytes = new short[(int)nMax];
@@ -49,7 +52,6 @@ public class Lab4 extends VecCommons
             int idx = (int)Math.floor(i / fnByte);
 
             a_Time[i] = (double)i / fs;
-            System.out.println(a_Time[i]);
             if (signBytes.charAt(idx) == '0') {
                 bytes[i] = 0;
             } else {
@@ -208,5 +210,9 @@ public class Lab4 extends VecCommons
 
     public double[] getSpnt() {
         return spnt;
+    }
+
+    public int getBytesCount() {
+        return bytesCount;
     }
 }

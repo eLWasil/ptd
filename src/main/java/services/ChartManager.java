@@ -23,8 +23,22 @@ import static java.lang.Boolean.TRUE;
 
 public class ChartManager {
 
-    private static final int MAX_Y = 200;
-    private static final int MIN_Y = 100;
+    private static int MAX_Y = 200;
+    private static int MIN_Y = 100;
+
+    public static void setMaxY(int maxY) {
+        MAX_Y = maxY;
+    }
+
+    public static void setMinY(int minY) {
+        MIN_Y = minY;
+    }
+
+    public static void setMinMax(int minY, int maxY) {
+        MIN_Y = -minY;
+        MAX_Y = maxY;
+    }
+
 
     public static ChartManager getInstance() {
         if (instance == null) {

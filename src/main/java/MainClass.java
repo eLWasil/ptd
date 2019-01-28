@@ -145,7 +145,15 @@ public class MainClass {
     public static void Lab5() {
         Lab5 lab5 = new Lab5();
 
-        panelList.add(chartManager.makeXYLineChart("Lab5 ASK Xt", "Time", lab5.getArr_Time(), "X(t)", lab5.getArr_Xt()));
+//        panelList.add(chartManager.makeXYLineChart("Lab5 ASK Xt", "Time", lab5.getArr_Time(), "X(t)", lab5.getArr_XtASK()));
+//        panelList.add(chartManager.makeXYLineChart("Lab5 ASK Pt", "Time", lab5.getArr_Time(), "P(t)", lab5.getArr_PtASK()));
+//        chartManager.setMinMax(-1, 2);
+//        panelList.add(chartManager.makeXYLineChart("Lab5 ASK Mt", "Time", lab5.getArr_Time(), "M(t)", lab5.getArr_MtASK()));
+
+        chartManager.setMinMax(-1, 2);
+//        panelList.add(chartManager.makeXYLineChart("Lab5 PSK Xt", "Time", lab5.getArr_Time(), "X(t)", lab5.getArr_XtPSK()));
+//        panelList.add(chartManager.makeXYLineChart("Lab5 PSK Pt", "Time", lab5.getArr_Time(), "P(t)", lab5.getArr_PtPSK()));
+        panelList.add(chartManager.makeXYLineChart("Lab5 PSK Mt", "Time", lab5.getArr_Time(), "M(t)", lab5.getArr_MtPSK()));
 
 
     }
